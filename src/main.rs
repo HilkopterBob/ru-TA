@@ -1,11 +1,10 @@
 #![doc(html_no_source)]
 
-use std::io;
-use std::process;
 
-use level::{Choice, ChoiceCondition, Condition};
 
-use crate::level::Level;
+use level::{Choice, Condition};
+use std::{thread, time::Duration};
+
 
 mod effects;
 mod entities;
@@ -13,8 +12,12 @@ mod game;
 mod items;
 mod level;
 mod player;
+mod utils;
 
 fn main() {
+
+
+
     //let game = game::Game::new();
     //println!("{:#?}", game);
     let mut test_availible_choices_level = level::Level::new(
@@ -66,7 +69,7 @@ fn main() {
         }));
     println!("{:#?}", test_availible_choices_level.get_availible_chocies());
     
-
+    utils::Printer::print(vec!["1. Go".to_string(), "2. Exit".to_string()], "100/100".to_string(), "1000".to_string(), "Testlocation".to_string());
 }
 
 fn print_ui() {
