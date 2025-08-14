@@ -49,7 +49,10 @@ fn main() {
                             name: "default_true".to_string(), 
                             value: "false".to_string()
                         })),
-                        trigger: None
+                        trigger: Some(level::Trigger::SetCondition(Condition{
+                            name: "default_true".to_string(),
+                            value: "true".to_string()
+                        }))
                     },
                 ],
         vec![
@@ -60,16 +63,24 @@ fn main() {
                     ]
     );
     //println!("{:#?}", test_availible_choices_level)
-    println!("{:#?}", test_availible_choices_level.get_availible_chocies().clone());
-    println!("Calling 'Handle Trigger' *******************");
-    test_availible_choices_level = test_availible_choices_level.handle_trigger(
-        level::Trigger::SetCondition(Condition{
-            name: "default_true".to_string(),
-            value: "false".to_string()
-        }));
-    println!("{:#?}", test_availible_choices_level.get_availible_chocies());
+    // println!("{:#?}", test_availible_choices_level.get_availible_chocies().clone());
+    // println!("Calling 'Handle Trigger' *******************");
+    // test_availible_choices_level = test_availible_choices_level.handle_trigger(
+    //     level::Trigger::SetCondition(Condition{
+    //         name: "default_true".to_string(),
+    //         value: "false".to_string()
+    //     }));
+    // println!("{:#?}", test_availible_choices_level.get_availible_chocies());
     
-    utils::Printer::print(vec!["1. Go".to_string(), "2. Exit".to_string()], "100/100".to_string(), "1000".to_string(), "Testlocation".to_string());
+    //utils::Printer::print("Level Description".to_string(), vec!["1. Go".to_string(), "2. Exit".to_string()], "100/100".to_string(), "1000".to_string(), "Testlocation".to_string());
+
+    let mut game = game::Game::new();
+    game.player = Some(player::Player::build("Test Player Name".to_string(), test_availible_choices_level));
+    loop {
+        game = game.run();
+    }
+    
+
 }
 
 fn print_ui() {

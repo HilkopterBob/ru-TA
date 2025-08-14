@@ -1,5 +1,6 @@
 
 #[derive(Debug)]
+#[derive(Clone)]
 pub struct Level {
     pub name: String,        // The Level Name
     pub description: String, // The Description that will be shown to player
@@ -31,7 +32,7 @@ impl Level {
     }
 
     // TODO: split up!
-    pub fn get_availible_chocies(self: &Self) -> Vec<Choice> {
+    pub fn get_availible_choices(self: &Self) -> Vec<Choice> {
         let mut available_choices: Vec<Choice> = Vec::new();
         
         // append choices with valid conditions
@@ -114,8 +115,16 @@ impl Level {
         println!("return!!!!!!!!!!!!!!!!!!!!!!!!");
         return available_choices;
     }
+
+    // pub fn handle_choice(self: Self, choice: Choice) -> (String, Level) {
+    //     if let Some(trigger) = choice.trigger {
+    //         self = self.handle_trigger(trigger)
+    //     }
+    //     return (, self)
+
+    // }
     
-    pub fn handle_trigger(mut self: Self, trigger: Trigger) -> Self {
+    pub fn handle_trigger(mut self: Self, trigger: &Trigger) -> Self {
         // TODO: log start of trigger handling
         match trigger {
             Trigger::SetCondition(condition) => {
@@ -170,6 +179,7 @@ pub enum ChoiceCondition {
 
 #[derive(Clone)]
 #[derive(Debug)]
+#[derive(PartialEq)]
 pub enum Trigger{
     SetCondition(Condition),
     Call(String)
